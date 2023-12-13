@@ -4,78 +4,113 @@
 #include <locale.h>
 #include <time.h>
 #include <ctype.h>
-
-float saque(float saque)
-{
-    float resultado;
-
-    resultado =
-
-    return resultado;
-}
-
-float deposito()
-{
-}
-
-struct contaBancaria
-{
-    char numeroConta[250];
-    char nome[250];
-    float saldo;
-    char tipoConta[250];
-};
-
-int main()
-{
-
-    setlocale(LC_ALL, "portuguese");
-
-    struct contaBancaria conta;
-    int codigo;
-    float saque;
-
-    printf("Informe o n�mero da conta: ");
-    gets(conta.numeroConta);
-
-    printf("Informe o seu nome: ");
-    gets(conta.nome);
-
-    printf("Informe o tipo de conta (POUPAN�A/CORRENTE): ");
-    gets(conta.tipoConta);
-
-    conta.saldo = 3000;
-
-    system("cls || clear");
-
-    printf("N�mero da conta: %s\n", conta.numeroConta);
-    printf("Conta %s\n", conta.tipoConta);
-    printf("Saldo: %.2f\n", conta.saldo);
-
-    do
-    {
-        printf("\n\n1-Saque\n");
-        printf("2-Deposito\n");
-        printf("3-Imprimir saldo atual\n");
-        printf("4-Sair\n\n");
-        printf("Informe o c�digo desejado: ");
-        scanf("%d", &codigo);
-
-        switch (codigo)
-        {
-        case 1:
-            printf("Informe a quantidade que deseja sacar: ");
-            scanf("%f", &saque);
-            saque(saque);
-            
-            break;
-        case 2:
-            deposito(conta);
-            break;
-        case 3:
-            break;
-        }
-    } while (codigo != 4);
-
-    return 0;
-}
+  
+ struct ContaBancaria 
+ { 
+     int numeroDaConta; 
+     char nomeDoTitular[200]; 
+     float saldo; 
+     char tipoDeConta[200]; 
+ }; 
+  
+ void depositar(struct ContaBancaria *conta, float valor) 
+ { 
+     conta->saldo += valor; 
+     printf("Depósito realizado com sucesso! Novo saldo: %.2f\n", conta->saldo); 
+ } 
+  
+ void sacar(struct ContaBancaria *conta, float valor) 
+ { 
+     if (valor <= conta->saldo) 
+     { 
+         conta->saldo -= valor; 
+         printf("\nSaque realizado com sucesso! \nNovo saldo: %.2f\n", conta->saldo); 
+     } 
+     else 
+     { 
+         printf("\nSaldo insuficiente. Operação não realizada.\n"); 
+     } 
+ } 
+  
+ void imprimirSaldo(struct ContaBancaria *conta) 
+ { 
+     printf("Saldo atual da conta: %.2f\n", conta->saldo); 
+ } 
+ void VerificarSePodeFazerDeposito(struct ContaBancaria *conta) 
+ { 
+     printf("Saldo atual da conta: %.2f\n", conta->saldo); 
+ } 
+  
+ int main() 
+ { 
+     setlocale(LC_ALL, "portuguese"); 
+     
+     struct ContaBancaria conta; 
+     int opcao; 
+     float valor; 
+  
+     printf("Digite o número da conta: "); 
+     scanf("%d", &conta.numeroDaConta); 
+  
+     fflush(stdin); 
+  
+     printf("Digite o nome do titular da conta: "); 
+     gets(conta.nomeDoTitular); 
+  
+     fflush(stdin); 
+  
+     printf("Qual o tipo da conta - POUPANÇA OU CORRENTE: "); 
+     gets(conta.tipoDeConta); 
+  
+     printf("Digite o saldo da conta: "); 
+     scanf("%f", &conta.saldo); 
+  
+     system("CLS || CLEAR"); 
+  
+     do 
+     { 
+         printf("\tOperações Bancárias \n"); 
+         printf("1|     Depositar            |\n"); 
+         printf("2|     Sacar                |\n"); 
+         printf("3|     Extrato              |\n"); 
+         printf("4|     Empréstimo           |\n"); 
+         printf("5|     Sair                 |\n"); 
+         printf("\nEscolha a opção desejada: "); 
+         scanf("%d", &opcao); 
+  
+         system("CLS || CLEAR"); 
+  
+         switch (opcao) 
+         { 
+         case 1: 
+             printf("Valor do depósito: "); 
+             scanf("%f", &valor); 
+             depositar(&conta, valor); 
+             break; 
+  
+         case 2: 
+             printf("Valor do saque: "); 
+             scanf("%f", &valor); 
+             sacar(&conta, valor); 
+             break; 
+  
+         case 3: 
+             imprimirSaldo(&conta); 
+             break; 
+         case 4: 
+             imprimirSaldo(&conta); 
+             break; 
+  
+         case 5: 
+             printf("Programa encerrado.\n"); 
+             break; 
+  
+         default: 
+             printf("Opção inválida. Tente novamente.\n"); 
+             break; 
+         } 
+  
+     } while (opcao != 4); 
+  
+     return 0; 
+ }
