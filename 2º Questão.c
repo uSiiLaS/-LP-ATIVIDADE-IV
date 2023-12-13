@@ -16,6 +16,7 @@ struct dados_aluno
 void calcularMedia(struct dados_aluno *aluno, float soma)
 {
     int i, j;
+    char resultado[250];
 
     for (i = 0; i < 5; i++)
     {
@@ -29,13 +30,17 @@ void calcularMedia(struct dados_aluno *aluno, float soma)
 
     for (i = 0; i < 5; i++)
     {
-        printf("\n%dº Aluno\n", i + 1);
+        printf("\n%dÂº Aluno\n", i + 1);
         printf("Nome: %s\n", aluno[i].nome);
         for (j = 0; j < 2; j++)
         {
-            printf("%dº nota : %f\n", j + 1, aluno[i].notas[j]);
+            printf("%dÂº nota : %f\n", j + 1, aluno[i].notas[j]);
         }
-        printf("Média: %f\n", aluno[i].media);
+        printf("MÃ©dia: %f\n", aluno[i].media);
+
+        aluno[i].media >= 7 ? strcpy(resultado, "Aluno Aprovado!") : strcpy(resultado, "Aluno Reprovado");
+    
+        printf("%s\n", resultado);
     }
 }
 
@@ -60,7 +65,7 @@ int main()
 
         for (j = 0; j < 2; j++)
         {
-            printf("Informe a %dº nota: ", j + 1);
+            printf("Informe a %dÂº nota: ", j + 1);
             scanf("%f", &aluno[i].notas[j]);
         }
 
